@@ -5,6 +5,8 @@ https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset
 Please ignore the rows that do not follow the correct format.
 
 Implement this class to analyze the data according to the documentation.
+
+Make sure to also write tests for it.
 """
 
 import sys
