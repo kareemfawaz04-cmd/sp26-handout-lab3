@@ -46,7 +46,7 @@ class SpamSorter:
             include_ham (bool): Whether to include ham messages in the result.
         
         Returns:
-            list[str]: A list of messages sorted by the frequency of the given word.
+            list[str]: A list of messages  sorted by the frequency of the given word.
         """
 
         list_of_messages = []
