@@ -48,4 +48,24 @@ class SpamSorter:
         Returns:
             list[str]: A list of messages sorted by the frequency of the given word.
         """
-        pass
+
+        list_of_messages = []
+
+        for _, row in self.df.iterrows():
+            label = row["v1"]
+
+            if label == "spam" and not include_spam:
+                continue
+            if label == "ham" and not include_ham:
+                continue
+
+            message = row["v2"]
+            count = message.count(word)
+
+            list_of_messages.append((count, message))
+
+        list_of_messages.sort(reverse=True)
+
+        return [msg for _, msg in list_of_messages]
+
+

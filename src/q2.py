@@ -30,6 +30,27 @@ class SpamPlotter:
             ValueError: If the dataframe does not contain the columns 'v1' and 'v2'
         """
         self.df = df
+        if "v1" not in df.columns or "v2" not in df.columns:
+            raise ValueError("DataFrame must contain 'v1' and 'v2' columns")
+        
+
+
+    def counting_helper(self) -> dict[str, tuple[int, int]]:
+
+        count= {}
+        for word in SpamReader(self.df).get_dictionary():
+            count_ham = 0
+            count_spam = 0
+            for _, row in self.df.iterrows():
+                if word in row["v2"]:
+                    if row["v1"] == "ham":
+                        count_ham += 1
+                    elif row["v1"] == "spam":
+                         count_spam += 1
+            count[word] = (count_ham, count_spam)
+
+        return count
+
 
     def plot_word_frequencies(self) -> None:
         """
@@ -43,4 +64,22 @@ class SpamPlotter:
         #    It should, for each word in the dictionary, count how often it appears
         #    in ham, and how often it appears in spam.
         #  - Then, in this method, call your helper method, and make the plot.
-        pass
+
+        
+        counts = self.counting_helper()
+
+        ham_counts = []
+        spam_counts = []
+
+        for word in counts:
+            ham_counts.append(counts[word][0])   # x-axis
+            spam_counts.append(counts[word][1])  # y-axis
+
+        plt.scatter(ham_counts, spam_counts)
+        plt.xlabel("Ham Count")
+        plt.ylabel("Spam Count")
+        plt.show()
+
+
+
+        
