@@ -11,6 +11,7 @@ write tests for this problem. If you are curious, there is a test that
 you can read in test_q2.py.
 """
 
+from itertools import count
 import sys
 sys.path.append(".")
 import pandas as pd
@@ -32,12 +33,22 @@ class SpamPlotter:
         self.df = df
         if "v1" not in df.columns or "v2" not in df.columns:
             raise ValueError("DataFrame must contain 'v1' and 'v2' columns")
-        
-
 
     def counting_helper(self) -> dict[str, tuple[int, int]]:
+        """
+        Count how many ham and spam messages contain each word.
 
-        count= {}
+        Iterates through all words returned by SpamReader and counts how many
+        "ham" and "spam" rows in the dataframe contain each word.
+
+        Returns:
+            dict[str, tuple[int, int]]: A dictionary mapping each word to a tuple:
+                (ham_count, spam_count)
+
+        Raises:
+            KeyError: If required columns ('v1' or 'v2') are missing from the dataframe.
+        """
+        count = {}
         for word in SpamReader(self.df).get_dictionary():
             count_ham = 0
             count_spam = 0
@@ -46,11 +57,9 @@ class SpamPlotter:
                     if row["v1"] == "ham":
                         count_ham += 1
                     elif row["v1"] == "spam":
-                         count_spam += 1
+                        count_spam += 1
             count[word] = (count_ham, count_spam)
-
         return count
-
 
     def plot_word_frequencies(self) -> None:
         """

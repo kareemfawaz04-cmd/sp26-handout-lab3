@@ -69,3 +69,4 @@ class SpamSorter:
         return [msg for _, msg in list_of_messages]
 
 
+
