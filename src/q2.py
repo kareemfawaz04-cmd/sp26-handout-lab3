@@ -83,7 +83,7 @@ class SpamPlotter:
         for _, (ham, spam) in counts.items():
             ham_counts.append(ham)
             spam_counts.append(spam)
-            
+
         plt.scatter(ham_counts, spam_counts)
         plt.xlabel("Ham Count")
         plt.ylabel("Spam Count")
