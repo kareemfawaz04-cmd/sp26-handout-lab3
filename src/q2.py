@@ -79,15 +79,16 @@ class SpamPlotter:
 
         ham_counts = []
         spam_counts = []
-
-        for word in counts:
-            ham_counts.append(counts[word][0])   # x-axis
-            spam_counts.append(counts[word][1])  # y-axis
-
+        
+        for _, (ham, spam) in counts.items():
+            ham_counts.append(ham)
+            spam_counts.append(spam)
+            
         plt.scatter(ham_counts, spam_counts)
         plt.xlabel("Ham Count")
         plt.ylabel("Spam Count")
         plt.show()
+
 
 
 
